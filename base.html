@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Tronwell{% endblock %}</title>
+    <!-- Agregar CDN de Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <!-- Agregar Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <style>
+    .navbar-nav {
+      margin-left: auto;
+      display: flex; /* Utilizamos flexbox */
+      align-items: center; /* Centramos verticalmente los elementos */
+    }
+    .navbar-brand img {
+      height: 40px;
+      margin-right: 10px; /* Agregamos un margen a la derecha del logo */
+    }
+    .navbar-text {
+      display: flex; /* Utilizamos flexbox */
+      align-items: center; /* Centramos verticalmente los elementos */
+    }
+    .footer2 {
+      background-color: #5ec8f2;
+      /* Aumentar el tamaño del footer */
+      height: 100px; /* Puedes ajustar este valor según tus necesidades */
+      line-height: 100px;
+    }
+    .parrafo {
+      text-align: center;
+    }
+  </style>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-primary bg-primary">
+      <div class="navbar-text ml-auto">
+        {% if current_user.is_authenticated %}
+        <img src="../static/imagenes/react.svg" alt="Avatar" class="avatar" />
+        <span class="ml-2">{{ current_user.nombre_usuario }}</span>
+        <span class="ml-2">Modulo de generacion de cursos con IA</span>
+        {% if current_user.tipo_usuario == 'admin' %}
+        <!-- Menú desplegable para administradores -->
+        <div class="dropdown ml-2">
+          <button
+            class="btn btn-secondary dropdown-toggle"
+            type="button"
+            id="dropdownMenuButton"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Opciones de Administrador
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="{{ url_for('admin_dashboard') }}"
+              >Panel de Administrador</a
+            >
+            <a class="dropdown-item" href="{{ url_for('profesor_dashboard') }}"
+              >Vista Profesor</a
+            >
+            <a class="dropdown-item" href="{{ url_for('alumno_dashboard') }}"
+              >Vista Alumno</a
+            >
+            <!-- Agrega más opciones de menú según sea necesario -->
+          </div>
+        </div>
+        {% endif %} {% endif %}
+      </div>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          {% if current_user.is_authenticated %}
+
+          <a
+            class="btn btn-primary nav-link border border-white text-white px-4 py-2 rounded nav-link"
+            href="{{ url_for('logout') }}"
+            >Cerrar Sesión</a
+          >
+          {% else %}
+          <a
+            class="btn btn-primary nav-link border border-white text-white px-4 py-2 rounded nav-link"
+            href="{{ url_for('inicio_sesion') }}"
+            >Iniciar Sesión</a
+          >
+          <a
+            class="btn btn-primary nav-link border border-white text-white px-4 py-2 rounded nav-link"
+            href="{{ url_for('registro') }}"
+            >Registrarse</a
+          >
+          {% endif %}
+          <!-- Add more links as needed -->
+        </ul>
+      </div>
+      <br />
+      <img
+        src="{{ url_for('static', filename='imagenes/logo_tronwell.png') }}"
+        alt="Logo"
+      />
+    </nav>
+
+    <br />
+    <br />
+
+    <!-- Main content -->
+
+    {% block content %} {% endblock %}
+
+    <!-- Footer -->
+    <footer class="footer2">
+      <div class="container">
+        <p class="parrafo">tronwell.com &copy; 2024</p>
+      </div>
+    </footer>
+
+    <!-- Agregar los scripts de jQuery, Popper.js y Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>

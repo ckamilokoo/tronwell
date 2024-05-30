@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Seccion - {{ seccion.nombre }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Editar Sección</h1>
+        <br>
+        <form action="{{ url_for('editar_seccion', clase_id=clase_id, seccion_id=seccion.id) }}" method="post">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ seccion.nombre }}">
+            </div>
+            <div class="form-group">
+                <label for="contenido">Contenido de Diapositivas</label>
+                <textarea class="form-control" id="contenido" name="contenido" rows="5">{{ seccion.contenido }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="dialogo">Contenido Audiovisual</label>
+                <textarea class="form-control" id="dialogo" name="dialogo" rows="5">{{ seccion.dialogo }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+        <a href="{{ url_for('ver_clase', id=clase_id) }}" class="btn btn-secondary mt-3">Volver</a>
+    </div>
+{% endblock %}
+
+

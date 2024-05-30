@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block title %}Ver Clase - {{ clase.nombre }}{%
+endblock %} {% block content %}
+<div class="container">
+  <h1>{{ clase.nombre }}</h1>
+  <h2>Secciones</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Contenido</th>
+        <th>Dialogo</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for seccion in secciones %}
+      <tr>
+        <td>{{ seccion.id }}</td>
+        <td>{{ seccion.nombre }}</td>
+        <td>{{ seccion.contenido }}</td>
+        <td>{{ seccion.dialogo }}</td>
+        <td>
+          <a
+            href="{{ url_for('editar_seccion', clase_id=clase.id, seccion_id=seccion.id) }}"
+            class="btn btn-info"
+            >Editar</a
+          >
+          <a
+            href="{{ url_for('eliminar_seccion', clase_id=clase.id, seccion_id=seccion.id) }}"
+            class="btn btn-danger"
+            >Eliminar</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

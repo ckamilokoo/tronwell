@@ -1,0 +1,76 @@
+{% extends "base.html" %} {% block title %}Home - My Website{% endblock %}
+{%block content %}
+<div class="container">
+  <h1>Generar Nueva Clase</h1>
+  <form action="{{ url_for('asistente2') }}" method="post">
+    <div class="input-group mb-3">
+      <span class="input-group-text">Contenido para la clase</span>
+      <textarea
+        class="form-control"
+        name="material"
+        aria-label="With textarea"
+      ></textarea>
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">Curso</span>
+      <select
+        class="form-select"
+        name="curso_id"
+        aria-label="Seleccionar curso"
+      >
+        {% for curso in cursos %}
+        <option value="{{ curso.id }}">{{ curso.nombre }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Generar Clase</button>
+  </form>
+  <br />
+
+  <h1>Crear Nuevo Curso</h1>
+  <form action="{{ url_for('crear_curso') }}" method="post">
+    <div class="input-group mb-3">
+      <span class="input-group-text">Nombre del Curso</span>
+      <input
+        type="text"
+        class="form-control"
+        name="nombre"
+        aria-label="Nombre del Curso"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Crear Curso</button>
+  </form>
+  <br />
+
+  <h1>Lista de Clases</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>ID del curso</th>
+        <th>Nombre</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for clase in clases %}
+      <tr>
+        <td>{{ clase.id }}</td>
+        <td>{{ clase.curso_id }}</td>
+        <td>{{ clase.nombre }}</td>
+        <td>
+          <a href="{{ url_for('ver_clase', id=clase.id) }}" class="btn btn-info"
+            >Ver</a
+          >
+          <a
+            href="{{ url_for('eliminar_clase', clase_id=clase.id) }}"
+            class="btn btn-danger"
+            >Eliminar</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
