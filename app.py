@@ -11,6 +11,7 @@ from flask import abort
 from datetime import datetime
 
 
+
 app = Flask(__name__)
 CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///clases.db'
@@ -121,7 +122,7 @@ def crear_curso():
     db.session.add(nuevo_curso)
     db.session.commit()
     registrar_accion(current_user.nombre_usuario, current_user.email, current_user.tipo_usuario, 'Crear curso')
-    return redirect(url_for('index'))
+    return redirect(url_for('profesor_dashboard'))
 
 
 @app.route('/api/cursos/<int:curso_id>/clases', methods=['POST'])
